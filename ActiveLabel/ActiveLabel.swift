@@ -60,6 +60,11 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
     @IBInspectable public var highlightFontName: String? = nil {
         didSet { updateTextStorage(parseText: false) }
     }
+    
+    @IBInspectable public var isShowUnderLine: Bool = false {
+        didSet { updateTextStorage(parseText: false) }
+    }
+    
     public var highlightFontSize: CGFloat? = nil {
         didSet { updateTextStorage(parseText: false) }
     }
@@ -333,6 +338,9 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             
             for element in elements {
                 mutAttrString.setAttributes(attributes, range: element.range)
+                if isShowUnderLine == true {
+                    mutAttrString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: element.range.location, length: element.range.length))
+                }
             }
         }
     }
